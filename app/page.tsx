@@ -2,8 +2,14 @@
 
 import { useState } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
-import { Mail, Phone, MapPin, Users, Home as HomeIcon, Bath, Wifi, Car, X, ChevronLeft, ChevronRight, Utensils, Wind, Shield, Calendar, Check } from 'lucide-react'
+import { 
+  Mail, Phone, MapPin, Users, Home as HomeIcon, Bath, Wifi, Car, 
+  X, ChevronLeft, ChevronRight, Utensils, Wind, Shield, Calendar, Check 
+} from 'lucide-react'
 
+/* ------------------------------
+   GALLERY IMAGES
+--------------------------------*/
 const galleryImages = [
   {
     src: '/images/white-mountain-views.webp',
@@ -57,6 +63,9 @@ const galleryImages = [
   },
 ]
 
+/* ------------------------------
+   TRANSLATIONS (content)
+--------------------------------*/
 const content = {
   en: {
     nav: { gallery: 'Gallery', location: 'Location', availability: 'Availability', inquire: 'Inquire' },
@@ -196,7 +205,7 @@ const content = {
       placeholder: 'Kalenderintegrasjon',
       note: 'Kobles til bookingsystem',
       availableTitle: 'Tilgjengelige Perioder',
-      periods: ['15.-31. jan 2025', '10. feb-5. mar 2025', '1.-20. apr 2025', '15. mai-10. jun 2025'],
+      periods: ['15.-31. jan 2025', '10. feb - 5. mar 2025', '1.-20. apr 2025', '15. mai - 10. jun 2025'],
       requestBooking: 'Forespør Booking'
     },
     contact: {
@@ -218,6 +227,9 @@ const content = {
   }
 }
 
+/* ---------------------------------
+   FRAMER MOTION VARIANTS
+----------------------------------*/
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: { opacity: 1, transition: { staggerChildren: 0.1 } }
@@ -228,11 +240,15 @@ const itemVariants = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
 }
 
+/* ---------------------------------
+   MAIN COMPONENT
+----------------------------------*/
 export default function Home() {
   const [lang, setLang] = useState<'en' | 'no'>('en')
   const [lightboxOpen, setLightboxOpen] = useState(false)
   const [currentImage, setCurrentImage] = useState(0)
   const [showCalendar, setShowCalendar] = useState(false)
+
   const { scrollYProgress } = useScroll()
   const opacity = useTransform(scrollYProgress, [0, 0.2], [1, 0])
 
@@ -248,7 +264,8 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Navigation with Language Toggle */}
+
+      {/* NAVIGATION */}
       <motion.nav 
         initial={{ y: -100 }}
         animate={{ y: 0 }}
@@ -288,7 +305,7 @@ export default function Home() {
         </div>
       </motion.nav>
 
-      {/* Hero Section */}
+      {/* HERO SECTION */}
       <section className="relative h-screen overflow-hidden">
         <motion.div 
           style={{ opacity }}
@@ -302,6 +319,7 @@ export default function Home() {
           alt="Liv's Hus pool with White Mountains"
           className="w-full h-full object-cover"
         />
+
         <div className="absolute inset-0 z-20 flex items-center justify-center text-center px-6">
           <div className="max-w-4xl">
             <motion.p 
@@ -312,6 +330,7 @@ export default function Home() {
             >
               {t.hero.location}
             </motion.p>
+
             <motion.h2 
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
@@ -320,6 +339,7 @@ export default function Home() {
             >
               {t.hero.title}
             </motion.h2>
+
             <motion.p 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -328,6 +348,7 @@ export default function Home() {
             >
               {t.hero.subtitle}
             </motion.p>
+
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -340,6 +361,7 @@ export default function Home() {
               >
                 {t.hero.exploreGallery}
               </button>
+
               <button 
                 onClick={() => setShowCalendar(true)}
                 className="px-8 py-3 bg-white text-gray-900 hover:bg-sand-100 transition-all"
@@ -351,21 +373,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Continue with rest of page... */}
-      {/* Introduction, Property, Gallery, Location, Contact sections follow same pattern */}
-      {/* Using t.section.key for all translations */}
-      
-      <footer className="py-12 px-6 lg:px-12 border-t border-sand-200">
-        <div className="max-w-7xl mx-auto text-center text-gray-500 text-sm">
-          <p className="font-serif text-xl mb-4">Liv's Hus</p>
-          <p>© 2025 Hárika Creative. {t.footer.rights}</p>
-        </div>
-      </footer>
-    </div>
-  )
-}
-
-      {/* Introduction */}
+      {/* INTRODUCTION */}
       <section className="py-24 px-6 lg:px-12">
         <motion.div 
           initial="hidden"
@@ -377,9 +385,11 @@ export default function Home() {
           <motion.p variants={itemVariants} className="text-ocean-500 text-sm tracking-[0.2em] uppercase mb-6 font-medium">
             {t.intro.label}
           </motion.p>
+
           <motion.h3 variants={itemVariants} className="font-serif text-4xl md:text-5xl mb-8 leading-tight text-balance">
             {t.intro.title}
           </motion.h3>
+
           <motion.div variants={itemVariants} className="prose prose-lg max-w-none">
             <p className="text-gray-600 leading-relaxed text-lg mb-6">{t.intro.text1}</p>
             <p className="text-gray-600 leading-relaxed text-lg">{t.intro.text2}</p>
@@ -387,18 +397,21 @@ export default function Home() {
         </motion.div>
       </section>
 
-      {/* Property Features */}
+      {/* PROPERTY SECTION */}
       <section className="py-24 px-6 lg:px-12 bg-sand-50">
         <div className="max-w-6xl mx-auto">
+
           <div className="grid md:grid-cols-2 gap-16 items-center mb-24">
             <motion.div initial={{ opacity: 0, x: -50 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }}>
               <img src="/images/open-plan.webp" alt="Open plan" className="w-full h-[500px] object-cover" />
             </motion.div>
+
             <motion.div initial={{ opacity: 0, x: 50 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }}>
               <p className="text-ocean-500 text-sm tracking-[0.2em] uppercase mb-4 font-medium">{t.property.label}</p>
+              
               <h4 className="font-serif text-3xl md:text-4xl mb-6">{t.property.title}</h4>
               <p className="text-gray-600 leading-relaxed mb-8">{t.property.description}</p>
-              
+
               <div className="grid grid-cols-2 gap-6">
                 {[
                   { icon: Users, data: t.property.features.sleeps },
@@ -406,7 +419,14 @@ export default function Home() {
                   { icon: HomeIcon, data: t.property.features.size },
                   { icon: Car, data: t.property.features.parking },
                 ].map((item, index) => (
-                  <motion.div key={index} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: index * 0.1, duration: 0.5 }} className="flex items-start gap-3">
+                  <motion.div 
+                    key={index} 
+                    initial={{ opacity: 0, y: 20 }} 
+                    whileInView={{ opacity: 1, y: 0 }} 
+                    viewport={{ once: true }} 
+                    transition={{ delay: index * 0.1, duration: 0.5 }}
+                    className="flex items-start gap-3"
+                  >
                     <item.icon className="w-5 h-5 text-ocean-500 mt-1 flex-shrink-0" />
                     <div>
                       <p className="font-medium mb-1">{item.data.title}</p>
@@ -418,8 +438,18 @@ export default function Home() {
             </motion.div>
           </div>
 
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={containerVariants} className="border-t border-sand-200 pt-16">
-            <motion.h5 variants={itemVariants} className="font-serif text-2xl mb-8">{t.property.amenitiesTitle}</motion.h5>
+          {/* AMENITIES */}
+          <motion.div 
+            initial="hidden" 
+            whileInView="visible" 
+            viewport={{ once: true }} 
+            variants={containerVariants} 
+            className="border-t border-sand-200 pt-16"
+          >
+            <motion.h5 variants={itemVariants} className="font-serif text-2xl mb-8">
+              {t.property.amenitiesTitle}
+            </motion.h5>
+
             <div className="grid md:grid-cols-3 gap-8">
               {[
                 { icon: Wifi, data: t.property.amenities.wifi },
@@ -430,7 +460,12 @@ export default function Home() {
                 { icon: null, data: t.property.amenities.concierge },
               ].map((item, index) => (
                 <motion.div key={index} variants={itemVariants}>
-                  {item.icon ? <item.icon className="w-6 h-6 text-ocean-500 mb-3" /> : <svg className="w-6 h-6 text-ocean-500 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" /></svg>}
+                  {item.icon 
+                    ? <item.icon className="w-6 h-6 text-ocean-500 mb-3" /> 
+                    : <svg className="w-6 h-6 text-ocean-500 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m0-4v10l-8 4V7m8 4l-8-4" />
+                      </svg>}
+                  
                   <h6 className="font-medium mb-2">{item.data.title}</h6>
                   <p className="text-sm text-gray-600">{item.data.desc}</p>
                 </motion.div>
@@ -440,20 +475,46 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Gallery */}
+      {/* GALLERY */}
       <section id="gallery" className="py-24 px-6 lg:px-12">
         <div className="max-w-7xl mx-auto">
-          <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-12">
-            <p className="text-ocean-500 text-sm tracking-[0.2em] uppercase mb-4 font-medium">{t.gallery.label}</p>
-            <h4 className="font-serif text-3xl md:text-4xl">{t.gallery.title}</h4>
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }} 
+            whileInView={{ opacity: 1, y: 0 }} 
+            viewport={{ once: true }} 
+            className="text-center mb-12"
+          >
+            <p className="text-ocean-500 text-sm tracking-[0.2em] uppercase mb-4 font-medium">
+              {t.gallery.label}
+            </p>
+
+            <h4 className="font-serif text-3xl md:text-4xl">
+              {t.gallery.title}
+            </h4>
           </motion.div>
-          
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={containerVariants} className="grid md:grid-cols-4 gap-4">
+
+          <motion.div 
+            initial="hidden" 
+            whileInView="visible" 
+            viewport={{ once: true }} 
+            variants={containerVariants} 
+            className="grid md:grid-cols-4 gap-4"
+          >
             {galleryImages.map((image, index) => (
-              <motion.button key={index} variants={itemVariants} whileHover={{ scale: 1.05 }} transition={{ duration: 0.3 }} onClick={() => openLightbox(index)} className="relative overflow-hidden group cursor-pointer aspect-square">
+              <motion.button 
+                key={index} 
+                variants={itemVariants}
+                whileHover={{ scale: 1.05 }} 
+                transition={{ duration: 0.3 }}
+                onClick={() => openLightbox(index)}
+                className="relative overflow-hidden group cursor-pointer aspect-square"
+              >
                 <img src={image.src} alt={image.alt[lang]} className="w-full h-full object-cover" />
+
                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors flex items-end p-4">
-                  <span className="text-white text-sm opacity-0 group-hover:opacity-100 transition-opacity">{image.category[lang]}</span>
+                  <span className="text-white text-sm opacity-0 group-hover:opacity-100 transition-opacity">
+                    {image.category[lang]}
+                  </span>
                 </div>
               </motion.button>
             ))}
@@ -461,54 +522,126 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Lightbox */}
+      {/* LIGHTBOX */}
       {lightboxOpen && (
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 bg-black/95 z-50 flex items-center justify-center">
-          <button onClick={() => setLightboxOpen(false)} className="absolute top-6 right-6 text-white hover:text-sand-200 transition-colors"><X className="w-8 h-8" /></button>
-          <button onClick={prevImage} className="absolute left-6 text-white hover:text-sand-200 transition-colors"><ChevronLeft className="w-12 h-12" /></button>
-          <motion.div key={currentImage} initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.3 }} className="max-w-6xl max-h-[90vh] px-20">
-            <img src={galleryImages[currentImage].src} alt={galleryImages[currentImage].alt[lang]} className="w-full h-full object-contain" />
-            <p className="text-white text-center mt-4 text-sm">{galleryImages[currentImage].category[lang]} • {currentImage + 1} / {galleryImages.length}</p>
+        <motion.div 
+          initial={{ opacity: 0 }} 
+          animate={{ opacity: 1 }} 
+          exit={{ opacity: 0 }} 
+          className="fixed inset-0 bg-black/95 z-50 flex items-center justify-center"
+        >
+          <button 
+            onClick={() => setLightboxOpen(false)} 
+            className="absolute top-6 right-6 text-white hover:text-sand-200 transition-colors"
+          >
+            <X className="w-8 h-8" />
+          </button>
+
+          <button 
+            onClick={prevImage} 
+            className="absolute left-6 text-white hover:text-sand-200 transition-colors"
+          >
+            <ChevronLeft className="w-12 h-12" />
+          </button>
+
+          <motion.div 
+            key={currentImage} 
+            initial={{ opacity: 0, scale: 0.9 }} 
+            animate={{ opacity: 1, scale: 1 }} 
+            transition={{ duration: 0.3 }} 
+            className="max-w-6xl max-h-[90vh] px-20"
+          >
+            <img 
+              src={galleryImages[currentImage].src} 
+              alt={galleryImages[currentImage].alt[lang]} 
+              className="w-full h-full object-contain" 
+            />
+
+            <p className="text-white text-center mt-4 text-sm">
+              {galleryImages[currentImage].category[lang]} • {currentImage + 1} / {galleryImages.length}
+            </p>
           </motion.div>
-          <button onClick={nextImage} className="absolute right-6 text-white hover:text-sand-200 transition-colors"><ChevronRight className="w-12 h-12" /></button>
+
+          <button 
+            onClick={nextImage} 
+            className="absolute right-6 text-white hover:text-sand-200 transition-colors"
+          >
+            <ChevronRight className="w-12 h-12" />
+          </button>
         </motion.div>
       )}
 
-      {/* Calendar Modal */}
+      {/* CALENDAR MODAL */}
       {showCalendar && (
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-6" onClick={() => setShowCalendar(false)}>
-          <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} onClick={(e) => e.stopPropagation()} className="bg-white max-w-4xl w-full p-8 max-h-[90vh] overflow-y-auto">
+        <motion.div 
+          initial={{ opacity: 0 }} 
+          animate={{ opacity: 1 }} 
+          className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-6"
+          onClick={() => setShowCalendar(false)}
+        >
+          <motion.div 
+            initial={{ scale: 0.9, opacity: 0 }} 
+            animate={{ scale: 1, opacity: 1 }} 
+            onClick={(e) => e.stopPropagation()} 
+            className="bg-white max-w-4xl w-full p-8 max-h-[90vh] overflow-y-auto"
+          >
             <div className="flex items-center justify-between mb-8">
               <h3 className="font-serif text-3xl">{t.calendar.title}</h3>
-              <button onClick={() => setShowCalendar(false)}><X className="w-6 h-6" /></button>
+
+              <button onClick={() => setShowCalendar(false)}>
+                <X className="w-6 h-6" />
+              </button>
             </div>
+
             <div className="border border-sand-200 p-8 text-center mb-8">
               <Calendar className="w-16 h-16 mx-auto mb-4 text-ocean-500" />
               <p className="text-gray-600 mb-4">{t.calendar.placeholder}</p>
               <p className="text-sm text-gray-500">{t.calendar.note}</p>
             </div>
+
             <div className="space-y-4">
               <h4 className="font-medium mb-4">{t.calendar.availableTitle}</h4>
+
               {t.calendar.periods.map((period, index) => (
-                <div key={index} className="flex items-center justify-between p-4 border border-sand-200 hover:border-ocean-500 transition-colors">
+                <div 
+                  key={index} 
+                  className="flex items-center justify-between p-4 border border-sand-200 hover:border-ocean-500 transition-colors"
+                >
                   <span>{period}</span>
                   <Check className="w-5 h-5 text-green-500" />
                 </div>
               ))}
             </div>
-            <button onClick={() => setShowCalendar(false)} className="w-full mt-8 px-8 py-4 bg-ocean-500 text-white font-medium hover:bg-ocean-600 transition-colors">{t.calendar.requestBooking}</button>
+
+            <button 
+              onClick={() => setShowCalendar(false)} 
+              className="w-full mt-8 px-8 py-4 bg-ocean-500 text-white font-medium hover:bg-ocean-600 transition-colors"
+            >
+              {t.calendar.requestBooking}
+            </button>
           </motion.div>
         </motion.div>
       )}
 
-      {/* Location */}
+      {/* LOCATION */}
       <section id="location" className="py-24 px-6 lg:px-12 bg-sand-50">
         <div className="max-w-6xl mx-auto">
+
           <div className="grid md:grid-cols-2 gap-16 items-center">
-            <motion.div initial={{ opacity: 0, x: -50 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }} className="order-2 md:order-1">
-              <p className="text-ocean-500 text-sm tracking-[0.2em] uppercase mb-4 font-medium">{t.location.label}</p>
+            <motion.div 
+              initial={{ opacity: 0, x: -50 }} 
+              whileInView={{ opacity: 1, x: 0 }} 
+              viewport={{ once: true }} 
+              transition={{ duration: 0.8 }}
+              className="order-2 md:order-1"
+            >
+              <p className="text-ocean-500 text-sm tracking-[0.2em] uppercase mb-4 font-medium">
+                {t.location.label}
+              </p>
+
               <h4 className="font-serif text-3xl md:text-4xl mb-6">{t.location.title}</h4>
               <p className="text-gray-600 leading-relaxed mb-6">{t.location.description}</p>
+
               <ul className="space-y-4 mb-8">
                 {t.location.nearby.map((item, index) => (
                   <li key={index} className="flex items-start gap-3">
@@ -517,8 +650,10 @@ export default function Home() {
                   </li>
                 ))}
               </ul>
+
               <div className="border-t border-sand-200 pt-6">
                 <h5 className="font-medium mb-4">{t.location.attractionsTitle}</h5>
+
                 <div className="space-y-2 text-sm text-gray-600">
                   {t.location.attractions.map((attraction, index) => (
                     <p key={index}>• {attraction}</p>
@@ -526,44 +661,87 @@ export default function Home() {
                 </div>
               </div>
             </motion.div>
-            <motion.div initial={{ opacity: 0, x: 50 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }} className="order-1 md:order-2">
+
+            <motion.div 
+              initial={{ opacity: 0, x: 50 }} 
+              whileInView={{ opacity: 1, x: 0 }} 
+              viewport={{ once: true }} 
+              transition={{ duration: 0.8 }} 
+              className="order-1 md:order-2"
+            >
               <img src="/images/Basseng_med_sjø.webp" alt="Pool with sea view" className="w-full h-[600px] object-cover" />
             </motion.div>
           </div>
         </div>
       </section>
 
-      {/* Contact */}
+      {/* CONTACT */}
       <section id="contact" className="py-24 px-6 lg:px-12">
-        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={containerVariants} className="max-w-2xl mx-auto text-center">
-          <motion.p variants={itemVariants} className="text-ocean-500 text-sm tracking-[0.2em] uppercase mb-4 font-medium">{t.contact.label}</motion.p>
-          <motion.h4 variants={itemVariants} className="font-serif text-3xl md:text-4xl mb-6">{t.contact.title}</motion.h4>
-          <motion.p variants={itemVariants} className="text-gray-600 leading-relaxed mb-12">{t.contact.description}</motion.p>
-          
+        <motion.div 
+          initial="hidden" 
+          whileInView="visible" 
+          viewport={{ once: true }} 
+          variants={containerVariants} 
+          className="max-w-2xl mx-auto text-center"
+        >
+          <motion.p variants={itemVariants} className="text-ocean-500 text-sm tracking-[0.2em] uppercase mb-4 font-medium">
+            {t.contact.label}
+          </motion.p>
+
+          <motion.h4 variants={itemVariants} className="font-serif text-3xl md:text-4xl mb-6">
+            {t.contact.title}
+          </motion.h4>
+
+          <motion.p variants={itemVariants} className="text-gray-600 leading-relaxed mb-12">
+            {t.contact.description}
+          </motion.p>
+
+          {/* CONTACT DETAILS */}
           <motion.div variants={itemVariants} className="space-y-6 mb-12">
             <a href="mailto:hello@harikacreative.com" className="flex items-center justify-center gap-3 text-gray-700 hover:text-ocean-500 transition-colors">
               <Mail className="w-5 h-5" />
               <span>hello@harikacreative.com</span>
             </a>
+
             <a href="tel:+306912345678" className="flex items-center justify-center gap-3 text-gray-700 hover:text-ocean-500 transition-colors">
               <Phone className="w-5 h-5" />
               <span>+30 691 234 5678</span>
             </a>
           </motion.div>
 
+          {/* CONTACT FORM */}
           <motion.form variants={itemVariants} className="space-y-6 max-w-lg mx-auto">
             <div className="grid md:grid-cols-2 gap-6">
               <input type="text" placeholder={t.contact.form.firstName} className="w-full px-6 py-4 border border-sand-300 focus:outline-none focus:border-ocean-500 transition-colors" />
               <input type="text" placeholder={t.contact.form.lastName} className="w-full px-6 py-4 border border-sand-300 focus:outline-none focus:border-ocean-500 transition-colors" />
             </div>
+
             <input type="email" placeholder={t.contact.form.email} className="w-full px-6 py-4 border border-sand-300 focus:outline-none focus:border-ocean-500 transition-colors" />
+
             <input type="tel" placeholder={t.contact.form.phone} className="w-full px-6 py-4 border border-sand-300 focus:outline-none focus:border-ocean-500 transition-colors" />
+
             <div className="grid md:grid-cols-2 gap-6">
               <input type="date" placeholder={t.contact.form.checkIn} className="w-full px-6 py-4 border border-sand-300 focus:outline-none focus:border-ocean-500 transition-colors" />
               <input type="date" placeholder={t.contact.form.checkOut} className="w-full px-6 py-4 border border-sand-300 focus:outline-none focus:border-ocean-500 transition-colors" />
             </div>
+
             <textarea placeholder={t.contact.form.message} rows={5} className="w-full px-6 py-4 border border-sand-300 focus:outline-none focus:border-ocean-500 transition-colors resize-none" />
-            <button type="submit" className="w-full px-8 py-4 bg-ocean-500 text-white font-medium tracking-wide hover:bg-ocean-600 transition-colors">{t.contact.form.submit}</button>
+
+            <button type="submit" className="w-full px-8 py-4 bg-ocean-500 text-white font-medium tracking-wide hover:bg-ocean-600 transition-colors">
+              {t.contact.form.submit}
+            </button>
           </motion.form>
         </motion.div>
       </section>
+
+      {/* FOOTER */}
+      <footer className="py-12 px-6 lg:px-12 border-t border-sand-200">
+        <div className="max-w-7xl mx-auto text-center text-gray-500 text-sm">
+          <p className="font-serif text-xl mb-4">Liv's Hus</p>
+          <p>© 2025 Hárika Creative. {t.footer.rights}</p>
+        </div>
+      </footer>
+
+    </div>
+  )
+}
